@@ -71,16 +71,3 @@ uv run python -m cs.key_sensitivity lena.png
 ```
 *Outputs will be saved to: `data/analysis/image/lena_key_sensitivity_row.png`*
 
-### 4. Uniform Plaintext Analysis (Black & White Images)
-Generates completely black and completely white high-resolution (1024x1024) images, encrypts them, and outputs a side-by-side subplot to visually verify the cipher's ability to diffuse uniform data.
-
-```bash
-uv run python -m cs.uniform_analysis
-```
-*(Assuming you saved the black/white encryption script as `uniform_analysis.py` inside `src/cs/`)*
-*Outputs will be saved to: `data/analysis/image/black_white_highres_encryption_plot.png`*
-
-## 📚 Citation
-
-If you use this code in your research, please cite our paper:
-> [Author Names], "Title of the Paper," *Journal/Conference Name*, 2026.
