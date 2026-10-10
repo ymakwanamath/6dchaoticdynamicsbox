@@ -1,0 +1,7 @@
+=== Finite-Precision Periodicity Analysis ===
+Total Trials: 100
+Max Steps Bound: 1000000
+Cycles Detected: 0 / 100
+
+Result: All orbits exceeded 1000000 steps without entering a closed limit cycle.
+State degradation bound: Periodicity T > max_steps under IEEE-754 float64 arithmetic.

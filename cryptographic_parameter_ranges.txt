@@ -1,0 +1,40 @@
+METHODOLOGY
+--------------------------------------------------
+This script determines mathematically sound parameter ranges for a 6D modulo-1 chaotic map.
+1. Baselines: Variables not currently being scanned are held at non-integer values strictly > 1.
+2. Integer Exclusion: Exact integers (and values within a 0.05 margin) are explicitly rejected, 
+   as integer multipliers in modulo-1 maps cause finite-precision orbit collapse.
+3. Lyapunov Requirement: To guarantee hyperchaos, all 6 Lyapunov exponents must be > 0.05.
+Reality Check: These ranges ensure chaotic stretching and folding, which is necessary but not 
+sufficient for total cryptographic security. The final mapped bitstream must still pass NIST STS.
+--------------------------------------------------
+
+Valid continuous ranges for alpha:
+  [1.100, 1.938]
+  [2.068, 2.932]
+  [3.063, 3.927]
+  [4.058, 4.948]
+
+Valid continuous ranges for beta:
+  [1.100, 1.938]
+  [2.068, 2.932]
+  [3.063, 3.927]
+  [4.058, 4.948]
+
+Valid continuous ranges for gamma:
+  [1.100, 1.938]
+  [2.068, 2.932]
+  [3.063, 3.927]
+  [4.058, 4.948]
+
+Valid continuous ranges for mu:
+  [1.100, 1.938]
+  [2.068, 2.932]
+  [3.063, 3.927]
+  [4.058, 4.948]
+
+Valid continuous ranges for delta:
+  [2.100, 2.937]
+  [3.054, 3.949]
+  [4.066, 4.942]
+

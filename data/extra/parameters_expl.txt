@@ -1,0 +1,35 @@
+This is using floating extraction directly. 
+
+
+\section{Parameter Selection and Dynamical Justification}
+
+To ensure the cryptographic security of the extracted keystream---specifically when isolating bits 24 through 31 of the IEEE-754 double-precision mantissa---the system parameters must be constrained to the intervals defined below. Exact integers and simple dyadic fractions (e.g., $4.5$) are strictly excluded to prevent static bit-patterns in the floating-point memory representation.
+
+\begin{itemize}
+    \item $\alpha_1, \alpha_2, \alpha_3, \alpha_4 \in [4.1, 4.9]$
+    \item $\beta_1, \beta_2, \beta_3, \beta_4 \in [0.8, 1.2]$
+    \item $\mu_1, \mu_2 \in [2.1, 4.9]$
+    \item $\gamma \in [1.1, 3.5]$
+    \item $\delta_1, \delta_2 \in [3.1, 7.5]$
+\end{itemize}
+
+\subsection{Dynamical Reasoning}
+
+\begin{enumerate}
+    \item \textbf{Primary Stretching Coefficients ($\alpha_i \in [4.1, 4.9]$):} 
+    In the context of direct IEEE-754 memory extraction, multiplication by $\alpha_i$ dictates the leftward propagation of entropy across the 52-bit mantissa. Bounding $\alpha_i \ge 4.1$ ensures an effective bit-shift of more than two positions per iteration. This exponential divergence forces the chaotic entropy from the least significant bits to rapidly cascade into the target extraction window (bits 24--31). Values below this threshold fail to mutate the middle mantissa bits fast enough, resulting in adjacent iterations exhibiting high autocorrelation.
+
+    \item \textbf{Cross-Channel Diffusion ($\beta_i \in [0.8, 1.2]$):} 
+    The parameters $\beta_i$ govern the spatial diffusion across the 4D keystream core. Bounding these near $1.0$ guarantees strong bidirectional mixing between the state variables $x_1$ through $x_4$. If $\beta_i < 0.8$, the dimensions become dynamically isolated, allowing an attacker to execute delay-coordinate embedding on a single plaintext channel. Conversely, if $\beta_i$ is too large relative to $\alpha_i$, the parallel variables will undergo complete or generalized synchronization, mathematically collapsing the degrees of freedom and resulting in identical extracted byte sequences across different channels.
+
+    \item \textbf{Base Expansion of the Non-linear Dimensions ($\mu_i \in [2.1, 4.9]$):} 
+    The variables $x_5$ and $x_6$ serve as the entropy source for the non-linear perturbation. Constraining $\mu_i \ge 2.1$ guarantees that these orthogonal feedback loops maintain a strictly positive local Lyapunov exponent independent of the 4D core. This ensures the injected perturbation does not degrade into a predictable limit cycle.
+
+    \item \textbf{Non-Linear Folding Amplitude ($\delta_i \in [3.1, 7.5]$):} 
+    The extracted byte stream (values $0$ to $255$) must strictly conform to a uniform distribution to serve as a secure one-time pad for XOR encryption. Bounding $\delta_i \ge 3.1$ forces the product of the sine functions to exceed the $\pmod 1$ boundary at least three times per iteration. This aggressive phase-space folding flattens the invariant density of the chaotic attractor, eliminating structural biases and ensuring histogram uniformity in the extracted bits.
+
+    \item \textbf{Cross-Channel Cascading and Bias Disruption ($\gamma \in [1.1, 3.5]$):} 
+    The 4D core is formulated using strictly linear operations (addition and scalar multiplication). Linear arithmetic preserves localized geometric structures within the floating-point mantissa. A coupling factor $\gamma \ge 1.1$ is required to force the trigonometric output of $x_5$ and $x_6$ to routinely trigger modulo wraparounds within the 4D core. This high-amplitude non-linear injection acts as a structural disruptor, completely decorrelating the middle mantissa bits (24--31) and neutralizing algebraic linearization attacks.
+\end{enumerate}
+
+

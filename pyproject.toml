@@ -1,0 +1,29 @@
+[project]
+name = "cs"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "click>=8.5.0",
+    "cryptography>=50.0.1",
+    "matplotlib>=3.11.2",
+    "mlkem>=0.0.3",
+    "numpy>=2.5.3",
+    "pillow>=12.3.0",
+    "pqcrypto>=1.0.0",
+    "scipy>=1.18.1",
+]
+
+[project.scripts]
+cs = "cs:main"
+
+[build-system]
+requires = ["uv_build>=0.11.7,<0.12.0"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "pytest>=9.1.1",
+]
+
